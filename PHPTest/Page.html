@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+     <meta http-equiv="content-script-type" content="text/javascript">
+    <script  type="text/javascript"  src="jquery-1.7.1.min.js">  </script>
+    <script  type="text/javascript"  src="md5.js">  </script>
+   
+    <script language="javascript" type="text/javascript">
+   $( document ).ready(function() {
+    console.log( "ready!" );
+  $("#btn2").click(function(){
+     //alert("ok");
+
+     
+
+      $.ajax({   
+                        url: "http://localhost:50923/OMSService.svc/GetData" ,
+                        type: "get",  
+                        crossDomain: true,
+                        processdata:true,
+                        dataType:"jsonp",
+                        contentType:"application/json",
+                        success: function (data) {   
+                            alert(data);  
+                        }
+                  })
+
+
+     var sign  = hex_md5("4523422&a007&cy007&d007&sdd"+"K632F764133F45be")
+                  $.ajax({   
+                        url: "http://localhost:50923/OMSService.svc/login",//?seller=a007&service=cy007&timestamp=4523422&user=d007&pass=sdd&sign="+sign,
+                        type: "post",  
+                        //crossDomain: true,
+                       // processdata:true,
+                        dataType:"jsonp",
+                        contentType:"application/json",
+                        data:{
+                        'seller':'a007',
+                        'service':'cy007',
+                        'timestamp':4523422 ,
+                        'user':'d007',
+                        'pass':'sdd',
+                        'sign':sign
+                        },  
+                        success: function (data) {   
+                            // alert(data);  
+                            console.log(data);
+                        }
+                  });
+
+
+  });
+});
+
+
+     
+    </script>
+</head>
+<body>
+
+<input id="btn" type="button" style=" height:23px; width: 100px;top:200px;left:200px;"  value="GETPerson" />
+<input id="btn2" type="button" style=" height:23px; width: 100px;top:200px;left:300px;"  value="InsertPerson" />
+</body>
+</html>
+
